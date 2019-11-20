@@ -7,6 +7,7 @@ module.exports.pushEvent = async event => {
   console.log(process.env.OUR_STREAM)
 
   console.log(event);
+  var data = 'tst data here';
   // streamName = event.get('streamName');
   var streamName = '';
   var params = {
@@ -17,7 +18,7 @@ module.exports.pushEvent = async event => {
   };
   kinesis.putRecord(params, function(err, data) {
     if (err) console.log(err, err.stack); // an error occurred
-    else     console.log(data);           // successful response
+    else     console.log('returned with ' + data);           // successful response
   });
 
   
