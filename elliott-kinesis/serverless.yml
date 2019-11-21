@@ -10,15 +10,20 @@ service: elliott-kinesis
 
 provider:
   name: aws
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - kinesis:*
+      Resource:
+        - arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
   runtime: nodejs10.x
   region: ap-southeast-2
-
 
 functions:
   pushEvent:
     handler: handler.pushEvent
     environment:
-      OUR_STREAM: arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream    
+      OUR_STREAM: arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
     events:
       - http:
           path: event
@@ -26,11 +31,11 @@ functions:
 
   processEvent:
     handler: process.processEvent
-    events:     
+    events:
       - stream:
           type: kinesis
           arn: arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
-            # Fn::ImportValue: MyExportedKinesisStreamArnId      
+            # Fn::ImportValue: MyExportedKinesisStreamArnId
 
 # you can add CloudFormation resource templates here
 #resources:

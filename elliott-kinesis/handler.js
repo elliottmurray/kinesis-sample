@@ -11,26 +11,35 @@ module.exports.pushEvent = async event => {
   // streamName = event.get('streamName');
   var streamName = '';
   var params = {
-    Data: Buffer.from('hello world'), 
+    Data: Buffer.from('hello world'),
     PartitionKey: '1',
     StreamName: 'queensWorkStream'
-    
+
   };
-  kinesis.putRecord(params, function(err, data) {
-    if (err) console.log(err, err.stack); // an error occurred
-    else     console.log('returned with ' + data);           // successful response
+  const promise = new Promise(function(resolve, reject) {
+    kinesis.putRecord(params, function(err, data) {
+      console.log('In PUTRECORD');
+
+      if (err) reject(console.log(err, err.stack));
+      else {
+        console.log('returned with ' + data)
+        resolve({
+          statusCode: 200,
+          body: JSON.stringify(
+            {
+              message: 'Go Serverless v1.0! Your function executed successfully!',
+              input: event,
+            },
+            null,
+            2
+          ),
+        });
+      }
+    });
   });
 
-  
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
-};
+  console.log('POST PUTRECORD');
+  return promise;
+}
+
+
