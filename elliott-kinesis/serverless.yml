@@ -15,7 +15,7 @@ provider:
       Action:
         - kinesis:*
       Resource:
-        - arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
+        - arn:aws:kinesis:ap-southeast-2:773592622512:stream/elliott-test
   runtime: nodejs10.x
   region: ap-southeast-2
 
@@ -23,7 +23,7 @@ functions:
   pushEvent:
     handler: handler.pushEvent
     environment:
-      OUR_STREAM: arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
+      OUR_STREAM: arn:aws:kinesis:ap-southeast-2:773592622512:stream/elliott-test
     events:
       - http:
           path: event
@@ -34,9 +34,8 @@ functions:
     events:
       - stream:
           type: kinesis
-          arn: arn:aws:kinesis:ap-southeast-2:773592622512:stream/queensWorkStream
+          arn: arn:aws:kinesis:ap-southeast-2:773592622512:stream/elliott-test
           batchSize: 2
-
             # Fn::ImportValue: MyExportedKinesisStreamArnId
 
 # you can add CloudFormation resource templates here

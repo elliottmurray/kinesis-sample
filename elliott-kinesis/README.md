@@ -1,8 +1,10 @@
 # Setup
+
+This relies on a Kinesis stream having already been created. You will have to think about how you want to manage this. For now [I created one via the console](arn:aws:kinesis:ap-southeast-2:773592622512:stream/elliott-test
+). You can see the hardcoded ARN in the serverless.yml file. Can do a look up of outputs of another stack.
+
 To deploy
-
 ```
-
 serverless deploy -v
 ```
 
