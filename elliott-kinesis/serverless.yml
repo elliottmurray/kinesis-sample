@@ -23,7 +23,7 @@ functions:
   pushEvent:
     handler: handler.pushEvent
     environment:
-      OUR_STREAM: arn:aws:kinesis:ap-southeast-2:773592622512:stream/elliott-test
+      OUR_STREAM: elliott-test
     events:
       - http:
           path: event

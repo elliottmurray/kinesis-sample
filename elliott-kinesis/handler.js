@@ -3,17 +3,17 @@ var AWS = require('aws-sdk');
 
 module.exports.pushEvent = async event => {
   var kinesis = new AWS.Kinesis();
-  console.log("!!!!!!!!!");
+  console.log("!!!!!!!!! Push Event !!!!!!!!!!!");
   console.log(process.env.OUR_STREAM)
-
+  var stream = process.env.OUR_STREAM
   console.log(event);
-  var data = 'tst data here';
-  // streamName = event.get('streamName');
+  var data = 'test data here';
+
   var streamName = '';
   var params = {
     Data: Buffer.from('hello world'),
     PartitionKey: '1',
-    StreamName: 'queensWorkStream'
+    StreamName: stream
 
   };
   const promise = new Promise((resolve, reject) => {
