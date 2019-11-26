@@ -16,7 +16,7 @@ module.exports.pushEvent = async event => {
     StreamName: 'queensWorkStream'
 
   };
-  const promise = new Promise(function(resolve, reject) {
+  const promise = new Promise((resolve, reject) => {
     kinesis.putRecord(params, function(err, data) {
       console.log('In PUTRECORD');
 
