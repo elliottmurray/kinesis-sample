@@ -27,4 +27,12 @@ Check the logs. To do this log into the AWS Console and go to Cloudformation hom
 * PushEventLogGroup
 * ProcessEventLogGroup
 
-Inspect for relelvant log statements.
+Inspect for relelvant log statements:
+```
+SHARD_ITERATOR=$(aws kinesis get-shard-iterator --shard-id shardId-000000000000 --shard-iterator-type TRIM_HORIZON --stream-name elliott-test --query 'ShardIterator')
+aws kinesis get-records --shard-iterator $SHARD_ITERATOR
+```
+Then decode where [data] is the value in the Data of each item:
+```
+echo [Data] | base64 --decode
+```
